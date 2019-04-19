@@ -31,17 +31,11 @@ def createTab(path) :
         counterLine = 0
 
         for line in file :
-            counterColumn = 0
             tab.append([])
             elem = re.split(r'\t+', line)
             elem[0] = elem[0].lstrip('\ufeff')
             elem[-1] = elem[-1].rstrip('\n')
-
-            while counterColumn < len(elem) :
-                tab[counterLine].append(elem[counterColumn])
-                #print(counterColumn, " : ", tab[counterLine][counterColumn], "\n")
-                counterColumn += 1
-
+            tab[counterLine] = [elem[counterColumn] for counterColumn in range(len(elem))]
             counterLine +=1
 
         return tab
@@ -51,12 +45,10 @@ def search(tab, ref, system, param) :
     ref = wrapped(ref)
     system = wrapped(system)
     param = wrapped(param)
-    listeIdFound = [i for i in range(len(tab)) if (tab[i][index_ref] == ref and 
-                                                   tab[i][index_sys] == system and 
-                                                   tab[i][index_param] == param)]
 
-    return listeIdFound
-    
+    return [i for i in range(len(tab)) if (tab[i][index_ref] == ref and 
+                                           tab[i][index_sys] == system and 
+                                           tab[i][index_param] == param)]
 
 #write a txt file readable by the C3A excel plugin (if the tabs is well encoded)
 def writeTab(path, tab):
@@ -78,7 +70,7 @@ def stringToNumber(string):
 
     return float(re.findall(r'[-+]?\d*\.\d+|\d+', string)[0])
 
-def writeDetails(path, string):
+def write(path, string):
 
     with open(path, 'w', encoding='utf-16-le') as file:
         file.write(string)
@@ -100,11 +92,8 @@ def sum(tab):
             if (tab[i][index_ref] == tab[counter][index_ref] and 
                 tab[i][index_sys] == tab[counter][index_sys] and 
                 tab[i][index_param] == tab[counter][index_param] and 
-                tab[i][index_zone] == tab[counter][index_zone]):
-
-                if i == counter :
-                    i += 1
-                    continue
+                tab[i][index_zone] == tab[counter][index_zone] and
+                i != counter):
 
                 tab[counter][index_quantity] += stringToNumber(tab[i][index_quantity])
                 tab[counter][index_quantity2] += stringToNumber(tab[i][index_quantity2])
@@ -119,14 +108,15 @@ def sum(tab):
 
 def applyTabTrad(tabSUM, tabTRAD):
     tabXLS = []
-    #key : zone,    value : ["REFC3A : formula * quantity = finalQuantity","...","..."]
+    #key : zone,    value : ["[REFC3A] nom : formula * quantity = finalQuantity","...","..."]
     dico = dict()
-    listeIdNoModif = [1]*(len(tabSUM))
+    listeIndexNoModif = [1]*(len(tabSUM))
 
     for elem in tabTRAD :
-        listeInd = search(tabSUM, elem[ind_trad_ref], elem[ind_trad_sys], elem[ind_trad_param])
+        listeIndex = search(tabSUM, elem[ind_trad_ref], elem[ind_trad_sys], elem[ind_trad_param])
 
-        for index in listeInd:
+        for index in listeIndex:
+            tmp =[]
             tmp = list(tabSUM[index])
             quantity = '%.2f' % tabSUM[index][index_quantity]
             tmp[index_ref] = wrapped(elem[ind_trad_ref2])
@@ -135,19 +125,20 @@ def applyTabTrad(tabSUM, tabTRAD):
             tmp[index_quantity2] *= float(elem[ind_trad_form])
             tmp[index_quantity] = '\"%.2f\"' % tmp[index_quantity]
             tmp[index_quantity2] = '\"%.2f\"' % tmp[index_quantity2]
-            listeIdNoModif[index] = 0
+            listeIndexNoModif[index] = 0
             tabXLS.append(tmp)
-            
+
             if tmp[index_zone] not in dico :
                 dico[tmp[index_zone]] = []
                 
-            string = '[\"{}\"]\t{}\t:\t{}\tx\t{}\t=\t{}\n'.format(elem[ind_trad_ref2], elem[ind_trad_descr2],
-                                                                  elem[ind_trad_form], quantity,
-                                                                  tmp[index_quantity])
-            dico[tmp[index_zone]].append(string)
+            dico[tmp[index_zone]].append('[\"{}\"]\t{}\t:\t{}\tx\t{}\t=\t{}\n'.format(elem[ind_trad_ref2], 
+                                                                                      elem[ind_trad_descr2],
+                                                                                      elem[ind_trad_form], 
+                                                                                      quantity,
+                                                                                      tmp[index_quantity]))
 
-    for elem in listeIdNoModif :
-        i = 0
+    i = 0
+    for elem in listeIndexNoModif :
 
         if elem:
             tmp = list(tabSUM[i])
@@ -158,9 +149,9 @@ def applyTabTrad(tabSUM, tabTRAD):
             if tmp[index_zone] not in dico :
                 dico[tmp[index_zone]] = []
             
-            string = '[{}]\t{}\t:\tnon-modifié,\tquantité\t=\t{}\n'.format(tmp[index_ref], tmp[index_descr],
-                                                                            tmp[index_quantity])
-            dico[tmp[index_zone]].append(string)
+            dico[tmp[index_zone]].append('[{}]\t{}\t:\tnon-modifié,\tquantité\t=\t{}\n'.format(tmp[index_ref], 
+                                                                                               tmp[index_descr],
+                                                                                               tmp[index_quantity]))
 
         i+=1
         
@@ -175,7 +166,7 @@ def showDetails(dico):
         for elem in dico[key]:
             string2 += elem
 
-        string += '\r\n\r\nzone :\t{}\r\n\r\n{}'.format(key, string2)
+        string += '\r\n\r\nZone :\t{}\r\n\r\n{}'.format(key, string2)
 
     return string
 
@@ -192,11 +183,8 @@ def sum2(tab):
             if (tab[i][index_ref] == tab[counter][index_ref] and 
                 tab[i][index_sys] == tab[counter][index_sys] and 
                 tab[i][index_param] == tab[counter][index_param] and 
-                tab[i][index_zone] == tab[counter][index_zone]):
-
-                if i == counter :
-                    i += 1
-                    continue
+                tab[i][index_zone] == tab[counter][index_zone] and
+                i != counter):
 
                 tab[counter][index_quantity] += stringToNumber(tab[i][index_quantity])
                 tab[counter][index_quantity2] += stringToNumber(tab[i][index_quantity2])

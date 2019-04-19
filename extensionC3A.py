@@ -34,6 +34,7 @@ def main(details, error):
     details += fn.showDetails(dicoDetails)
     tabXLS = fn.sum2(tabXLS)
 
+
     return tabXLS, details, error
 
 try :
@@ -59,4 +60,4 @@ finally :
         print("Ok")
         DetErr = 'Le programme a abouti:\r\n\r\n' + DetErr
 
-    fn.writeDetails(detailsAndErrPath,DetErr)
+    fn.write(detailsAndErrPath,DetErr)
