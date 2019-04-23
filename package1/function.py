@@ -42,9 +42,6 @@ def createTab(path) :
 
 #return an index list of ref, which could be use to manipulate tabs
 def search(tab, ref, system, param) :
-    ref = wrapped(ref)
-    system = wrapped(system)
-    param = wrapped(param)
 
     return [i for i in range(len(tab)) if (tab[i][index_ref] == ref and 
                                            tab[i][index_sys] == system and 
@@ -113,7 +110,10 @@ def applyTabTrad(tabSUM, tabTRAD):
     listeIndexNoModif = [1]*(len(tabSUM))
 
     for elem in tabTRAD :
-        listeIndex = search(tabSUM, elem[ind_trad_ref], elem[ind_trad_sys], elem[ind_trad_param])
+        ref = wrapped(elem[ind_trad_ref])
+        system = wrapped(elem[ind_trad_sys])
+        param = wrapped(elem[ind_trad_param])
+        listeIndex = search(tabSUM, ref, system, param)
 
         for index in listeIndex:
             tmp =[]

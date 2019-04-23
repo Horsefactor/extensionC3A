@@ -21,18 +21,24 @@ def main(details, error):
     #1. load tab from C3A txt file
     tabREVIT = fn.createTab(nomenclatureFilePath)
     details += '1.\tVotre nomenclature a été importée pour modification.\n'
+
+
     #2. load tab for translating
     tabTRAD = fn.createTab(tradFilePath)
     details += '2.\tLe tableau de traduction a été chargé.\n'
+
+
     #3. sum by ref_revit/system/param/zone
     tabSUM = fn.sum(tabREVIT)
     details += '3.\tLes éléments du tableau revit ont été additionnés en fonction de la reférence Revit, du paramètre, du système et de la zone\n'
+
+
     #4. apply translating
     tabXLS, dicoDetails = fn.applyTabTrad(tabSUM, tabTRAD)
     details += '4.\tLes changements ont été appliqués, voir les détails ci-dessous : \r\n\r\n'
     details += '------------------------------------------------------------------------ \r\n\r\n'
-    details += fn.showDetails(dicoDetails)
     tabXLS = fn.sum2(tabXLS)
+    details += fn.showDetails(dicoDetails)
 
 
     return tabXLS, details, error
