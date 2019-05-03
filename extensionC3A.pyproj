@@ -12,6 +12,7 @@
     <OutputPath>.</OutputPath>
     <Name>extensionC3A</Name>
     <RootNamespace>pythonTest</RootNamespace>
+    <PublishUrl>C:\Users\stagiaire\Desktop</PublishUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,16 +23,19 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="package1\function.py">
+    <Compile Include="package\App.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="package1\__init__.py">
+    <Compile Include="package\function.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="package\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="extensionC3A.py" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="package1\" />
+    <Folder Include="package\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

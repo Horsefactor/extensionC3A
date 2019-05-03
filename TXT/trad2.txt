@@ -1,0 +1,51 @@
+"VERIF(1=check;0=non)"	SYSTÈME_FAMILLE_TypeFamille	Taille	Article C3A	Nom détail C3A	facteur mult	"unité (0=pce;1=m;2=m²;3=m³)"
+						
+1	Extraction_Gaine circulaire_BEL_Gaine perforée	ø250	??????????????	Gaine perforée ø250 mm	1	1
+1	PAF_Gaine circulaire_BEL_Gaine perforée	ø250	??????????????	Gaine perforée ? 250 mm	1	1
+1	Pulsion_Gaine circulaire_BEL_Gaine perforée	ø250	??????????????	Gaine perforée ? 250 mm	1	1
+1	RAV_Gaine circulaire_BEL_Gaine perforée	ø250	??????????????	Gaine perforée ? 250 mm	1	1
+1	Extraction_Gaine circulaire_BEL_Gaine ronde	ø125	CS.5.1.1.2.b.	Gaine métallique ? 125 mm	1	1
+0	Extraction_Gaine circulaire_BEL_Gaine ronde	ø200	CS.5.1.1.2.d.	Gaine métallique ? 200 mm	1	1
+0	Extraction_Gaine circulaire_BEL_Gaine ronde	ø250	CS.5.1.1.2.e.	Gaine métallique ? 250 mm	1	1
+0	Extraction_Gaine circulaire_BEL_Gaine ronde	ø315	CS.5.1.1.2.f.	Gaine métallique ? 315 mm	1	1
+0	Extraction_Gaine circulaire_BEL_Gaine ronde	ø355	CS.5.1.1.2.g.	Gaine métallique ? 355 mm	1	1
+0	PAF_Gaine circulaire_BEL_Gaine ronde	ø100	CS.5.1.1.2.a.	Gaine métallique ? 100 mm	1	1
+0	PAF_Gaine circulaire_BEL_Gaine ronde	ø315	CS.5.1.1.2.f.	Gaine métallique ? 315 mm	1	1
+0	PAF_Gaine circulaire_BEL_Gaine ronde	ø355	CS.5.1.1.2.g.	Gaine métallique ? 355 mm	1	1
+0	Pulsion_Gaine circulaire_BEL_Gaine ronde	ø100	CS.5.1.1.2.a.	Gaine métallique ? 100 mm	1	1
+0	Pulsion_Gaine circulaire_BEL_Gaine ronde	ø125	CS.5.1.1.2.b.	Gaine métallique ? 125 mm	1	1
+0	Pulsion_Gaine circulaire_BEL_Gaine ronde	ø250	CS.5.1.1.2.e.	Gaine métallique ? 250 mm	1	1
+0	Pulsion_Gaine circulaire_BEL_Gaine ronde	ø315	CS.5.1.1.2.f.	Gaine métallique ? 315 mm	1	1
+0	Pulsion_Gaine circulaire_BEL_Gaine ronde	ø355	CS.5.1.1.2.g.	Gaine métallique ? 355 mm	1	1
+0	RAV_Gaine circulaire_BEL_Gaine ronde	ø100	CS.5.1.1.2.a.	Gaine métallique ? 100 mm	1	1
+0	RAV_Gaine circulaire_BEL_Gaine ronde	ø125	CS.5.1.1.2.b.	Gaine métallique ? 125 mm	1	1
+0	RAV_Gaine circulaire_BEL_Gaine ronde	ø315	CS.5.1.1.2.f.	Gaine métallique ? 315 mm	1	1
+0	RAV_Gaine circulaire_BEL_Gaine ronde	ø355	CS.5.1.1.2.g.	Gaine métallique ? 355 mm	1	1
+0	Extraction_Gaine rectangulaire_BEL_Gaine rectangulaire	500/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	Extraction_Gaine rectangulaire_BEL_Gaine rectangulaire	700/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	Extraction_Gaine rectangulaire_BEL_Gaine rectangulaire	1400/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	PAF_Gaine rectangulaire_BEL_Gaine rectangulaire	500/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	PAF_Gaine rectangulaire_BEL_Gaine rectangulaire	700/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	Pulsion_Gaine rectangulaire_BEL_Gaine rectangulaire	100/100	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	Pulsion_Gaine rectangulaire_BEL_Gaine rectangulaire	500/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	Pulsion_Gaine rectangulaire_BEL_Gaine rectangulaire	550/200	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	Pulsion_Gaine rectangulaire_BEL_Gaine rectangulaire	1000/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	Pulsion_Gaine rectangulaire_BEL_Gaine rectangulaire	1400/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	Pulsion_Gaine rectangulaire_BEL_Gaine rectangulaire	2400/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	RAV_Gaine rectangulaire_BEL_Gaine rectangulaire	850/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	RAV_Gaine rectangulaire_BEL_Gaine rectangulaire	1400/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	PAF_Gaine circulaire_BEL_Gaine ronde	ø200	CS.5.1.1.2.d.	Gaine métallique ? 200 mm	1	1
+0	PAF_Gaine circulaire_BEL_Gaine ronde	ø250	CS.5.1.1.2.e.	Gaine métallique ? 250 mm	1	1
+0	Pulsion_Gaine circulaire_BEL_Gaine ronde	ø200	CS.5.1.1.2.d.	Gaine métallique ? 200 mm	1	1
+0	RAV_Gaine circulaire_BEL_Gaine ronde	ø250	CS.5.1.1.2.e.	Gaine métallique ? 250 mm	1	1
+0	PAF_Gaine rectangulaire_BEL_Gaine rectangulaire	1400/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	Pulsion_Gaine rectangulaire_BEL_Gaine rectangulaire	700/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	RAV_Gaine rectangulaire_BEL_Gaine rectangulaire	500/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	Extraction_Gaine circulaire_BEL_Gaine ronde	ø100	CS.5.1.1.2.a.	Gaine métallique ? 100 mm	1	1
+0	PAF_Gaine circulaire_BEL_Gaine ronde	ø125	CS.5.1.1.2.b.	Gaine métallique ? 125 mm	1	1
+0	Pulsion_Gaine circulaire_BEL_Gaine ronde	ø160	CS.5.1.1.2.c.	Gaine métallique ? 160 mm	1	1
+0	RAV_Gaine circulaire_BEL_Gaine ronde	ø200	CS.5.1.1.2.d.	Gaine métallique ? 200 mm	1	1
+0	Extraction_Gaine rectangulaire_BEL_Gaine rectangulaire	850/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	PAF_Gaine rectangulaire_BEL_Gaine rectangulaire	850/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	Pulsion_Gaine rectangulaire_BEL_Gaine rectangulaire	850/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
+0	RAV_Gaine rectangulaire_BEL_Gaine rectangulaire	700/350	CS.5.1.1.1.	Surface de gaine rectangulaire	1	2
