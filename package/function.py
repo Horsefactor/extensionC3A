@@ -1,4 +1,4 @@
-import re
+from re import findall, split
 
 #revit structure
 index_revit_zone = 0
@@ -32,28 +32,23 @@ index_trad_descr = 4
 index_trad_form = 5
 index_trad_dim = 6
 
-#create a tab from a txt file that is formated with minimum a tabulation between columns   
+def mktabRevit(line):
+    '''format a line in revit file'''
+    elem = split(r'\t+', line)
+    elem[0] = elem[0].lstrip('\ufeff')
+    elem[-1] = elem[-1].rstrip('\n')
+
+    return list(map(lambda e:e.strip('\"'), elem))
+
 def createTabFromRevit(path) :
-     '''create tab from revit file'''
+     '''create tab from revit file that is formated with minimum a tabulation between columns'''
      with open(path, "r", encoding="utf-16-le") as file :
 
         return list(map(mktabRevit, file))
 
-def stripgui(elem):
-    '''strip guillemet from an elem'''
-    return elem.strip('\"')
-
-def mktabRevit(line):
-    '''format a line in revit file'''
-    elem = re.split(r'\t+', line)
-    elem[0] = elem[0].lstrip('\ufeff')
-    elem[-1] = elem[-1].rstrip('\n')
-
-    return list(map(stripgui, elem))
-
 def mktabTrad(line):
     ''' format a line in trad file'''
-    elem = re.split(r'\t+', line)
+    elem = split(r'\t+', line)
     elem[0] = elem[0].lstrip('\ufeff')
     elem[-1] = elem[-1].rstrip('\n')
 
@@ -61,7 +56,7 @@ def mktabTrad(line):
 
 def createTabFromTrad(path) :
      '''create trad file tab'''
-     with open(path, "r") as file :
+     with open(path, "r", encoding="utf-16-le") as file :
 
         return list(map(mktabTrad, file))
 
@@ -83,7 +78,7 @@ def writeTab(path, tab):
 
 def stringToNumber(string):
     '''find a number in a string and return it in a type float'''
-    return float(re.findall(r'[-+]?\d*\.\d+|\d+', string)[0])
+    return float(findall(r'[-+]?\d*\.\d+|\d+', string)[0])
 
 def write(path, string):
     '''write something in a file '''
@@ -102,6 +97,15 @@ def mkname(elem):
             elem[index_revit_q2],
             elem[index_revit_dim2]]
 
+def itemNotInTab(tab, name):
+    '''Search if an item is not in the tab in function of his name'''
+    for j in range(len(tab)):
+
+        if tab[j][index_revit_name] == name:
+            return False
+            
+    return True
+
 def applyTradFile(INPUT, TRAD):
     '''apply all the changes to send a new tab in excel'''
     OUT = []
@@ -118,17 +122,16 @@ def applyTradFile(INPUT, TRAD):
             stop+=1
             continue
 
-        #give any element which have the same param and name to apply formula and give them refC3A
-        listeSameName = [j for j in range(len(INPUT)) if INPUT[j][index_revit_name] == elem[index_trad_name]]
-
         #elem marked as important in tradfile and missing in revit file
-        if (int(elem[index_trad_check]) == 1 and listeSameName == []):
-            warningsElemMissing += '[{}]\t missing\r\n'.format(elem[index_trad_name])
+        if int(elem[index_trad_check]) == 1 and itemNotInTab(INPUT, elem[index_trad_name]):
+            warningsElemMissing += '''[{}]\t missing\r\n'''.format(elem[index_trad_name])
 
-        listIndex = [j for j in range(len(INPUT)) if (INPUT[j][index_revit_name] == elem[index_trad_name] and
-                                                      INPUT[j][index_revit_param] == elem[index_trad_param])]
+        iterIndex = (j for j in range(len(INPUT)) if (INPUT[j][index_revit_name] == elem[index_trad_name] and
+                                                      INPUT[j][index_revit_param] == elem[index_trad_param]))
 
-        for index in listIndex:
+        for index in iterIndex:
+            bitNoModified[index] = 0
+
             #0='pce'; 1='m'
             if int(elem[index_trad_dim]) in (0,1) :
                 OUT.append([elem[index_trad_ref],
@@ -136,15 +139,14 @@ def applyTradFile(INPUT, TRAD):
                             float(elem[index_trad_form])*stringToNumber(IN[index][index_re_q1]),
                             elem[index_trad_dim],
                             IN[index][index_re_name]])
-                bitNoModified[index] = 0
-                
+            
+            #2='m²'; 3='m³'
             else :
                 OUT.append([elem[index_trad_ref],
                             elem[index_trad_descr],
                             float(elem[index_trad_form])*stringToNumber(IN[index][index_re_q2]),
                             elem[index_trad_dim],
                             IN[index][index_re_name]])
-                bitNoModified[index] = 0
 
     for elem in bitNoModified :
         #elem ignore by trad file (no modif)
@@ -154,7 +156,7 @@ def applyTradFile(INPUT, TRAD):
                         IN[i][index_re_q1],
                         IN[i][index_re_dim1],
                         '/!\ aucune traduction trouvé dans le fichier de trad'])
-            warningsNoModif += '[{}]\t:\tquantité 1:\t{}{};\tquantité 2:\t{}{};\r\n'.format(IN[i][index_re_name],
+            warningsNoModif += '''[{}]\t:\t\tquantité 1:\t\t{}{};\tquantité 2:\t\t{}{};\r\n'''.format(IN[i][index_re_name],
                                                                                             IN[i][index_re_q1],
                                                                                             IN[i][index_re_dim1],
                                                                                             IN[i][index_re_q2],

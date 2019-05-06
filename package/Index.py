@@ -1,6 +1,6 @@
-from tkinter import*
-from os import path
+from tkinter import *
 from tkinter import filedialog
+from os import path
 
 class Index(Frame):
     def __init__(self, parent, controller):
@@ -43,7 +43,7 @@ class Index(Frame):
                         fg=self.controller.police,
                         font=("Helvetica",14,'bold'),
                         state = 'disabled',
-                        disabledforeground = '#FF0000',
+                        disabledforeground = '#850000',
                         command = self.run)
         self.button3.pack(fill=X)
 
@@ -64,7 +64,8 @@ class Index(Frame):
         self.right_frame.grid(row=0, column=1, sticky='nsew')
 
         Grid.rowconfigure(self, 0, weight=1)
-        for x in (0,1):
+
+        for x in (0,1): 
             Grid.columnconfigure(self, x, weight=1)
 
     def initImage(self):
@@ -80,10 +81,10 @@ class Index(Frame):
         self.canvas.grid(row=0, column=0, sticky='nsew')
 
     def initLabel(self):
-        self.label_title = Label(self.right_frame, 
+        self.label_title = Label(self.right_frame,
                                  text ="C3A EXTENSION",
-                                 font=("Helvetica",20,'bold'), 
-                                 bg=self.controller.bg, 
+                                 font=("Helvetica",20,'bold'),
+                                 bg=self.controller.bg,
                                  fg =self.controller.police)
         self.label_title.pack()
 
@@ -95,8 +96,8 @@ class Index(Frame):
 
     def save_file_final(self):
         f = filedialog.asksaveasfile(defaultextension=".txt")
-    
-        if f is None:
+
+        if f is None:   
             return
 
         self.controller.nomenclatureModifiedPath=f.name
@@ -117,12 +118,12 @@ class Index(Frame):
 
     def run(self):
         self.controller.main()
-        self.button3.config(text='Done',fg=self.controller.bg)
+        self.button3.config(text='Done', state='disabled')
 
     def restart(self):
         self.button1.config(text='Ouvrir un fichier')
         self.button2.config(text='Enregistrer sous')
         self.button3.config(text='Run', state='disabled')
-        self.nomenclatureFilePath = ''
-        self.nomenclatureModifiedPath = ''
-
+        self.controller.nomenclatureFilePath = ''
+        self.controller.nomenclatureModifiedPath = ''
+        self.controller.details = ''

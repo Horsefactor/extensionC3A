@@ -13,23 +13,23 @@ class Descr(Frame):
         self.initButton()
 
     def initLabel(self):
-        self.label1 = Label(self, 
+        self.label = Label(self, 
                             text="Information\nconcernant l'auteur de l'application :", 
                             font=("Helvetica",12,'bold'),
                             bg= self.controller.bg,
                             fg =self.controller.police)
-        self.label1.pack(side="top", fill="x", pady=10)
+        self.label.pack(side="top", fill="x", pady=10)
 
-        label2 = Text(self.lower_frame, 
+        me = Text(self.lower_frame, 
                       font=("Helvetica",10,'bold'),
                       bg ='#FAFACE')
-        label2.insert(END, 'Ce programme a été réalisé dans mon stage en tant qu\'étudiant \npour deveniringénieur informaticien.\
+        me.insert(END, 'Ce programme a été réalisé dans mon stage en tant qu\'étudiant \npour devenir ingénieur informaticien.\
                             \r\n\r\nNom et prénom : Thibault Delvaux\
                             \nEmail : thibaultdelvaux@outlook.fr\
                             \nNuméro de GSM : +32 484 381 244 \
-                            \r\n\r\nMention à l\'auteur de l\'image du menu principal : Kiranshastry')
-        label2.place(relwidth = 1, relheight=1)
-        label2.config(state='disabled')
+                            \r\n\r\nMention à l\'auteur de l\'image du menu principal : Kiran Shastry')
+        me.place(relwidth = 1, relheight=1)
+        me.config(state='disabled')
 
     def initButton(self):
         button = Button(self.lower_frame, 

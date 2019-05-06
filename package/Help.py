@@ -5,9 +5,9 @@ class Help(Frame):
         Frame.__init__(self, parent)
         self.controller = controller
         self.config(bg=controller.bg)
-        self.txt = string = '''Mode d'emploi de l'application ExtensionC3A :
-                                \r\n\r\n1. Option principale:
-                                \n\t1.1.Ouvrir le fichier .txt sorti de revit par C3A
+        self.txt = string = '''Mode d'emploi de l'application Extension C3A :
+                            \r\n\r\n1. Option principale:
+                                \n\t1.1.Ouvrir le fichier .txt sortit de revit par C3A
 	                            \n\t\tcelui-ci doit avoir les collones disposées comme ceci:
                                 \n\t\tzone = 0\n\t\tnom = 1\n\t\tparam = 2\n\t\tquantité 1 = 3\n\t\tdimension 1 = 4\n\t\tquantité 2 = 5\n\t\tdimension 2 = 6  
 
@@ -16,14 +16,14 @@ class Help(Frame):
 
                                 \n\t1.3. Choisir le fichier de destination
                                 \n\t1.4. Run le programme
-                                \r\n\r\n2. Option supplémentaire :
+                            \r\n\r\n2. Option supplémentaire :
                                 \n\t2.1. sous-menu Outil:
 	                            \n\t\t2.1.1.  Changer le fichier de traduction\n\t\t2.1.2.	Recommencer le programme\n\t\t2..1.3.	Quitter le programme (ce qui valide la dernière version du fichier de détails
 
-                            \n\t2.2  sous-menu aide :
-	                            \n\t\t2.2.1	Page info (ici)\n\t\t2.2.2	Fichier détails, reprénant diverses élément auxquels il faut faire attention. Ce n'est qu'une version temporaire la derniere version serra dans le fichier texte approprié\n\t\t2.2.3	Credits auteur
+                                \n\t2.2  sous-menu aide :
+	                            \n\t\t2.2.1	Page info (ici)\n\t\t2.2.2	Fichier détails, reprénant diverses éléments auxquels il faut faire attention. Ce n'est qu'une version temporaire la derniere version serra dans le fichier texte approprié\n\t\t2.2.3	Credits auteur
 
-                            \r\n\r\n3.	Sortie Revit comme ceci :
+                            \r\n\r\n3.Sortie Revit comme ceci :
 	                            \n\treférence article = 0\n\tdescription = 1\n\tquantité = 2\n\tdimension = 3\n\tcommentaire = 4\r\n\r\n\r\n\r\n\r\n\r\n
                             '''
         self.initWidget()
@@ -68,5 +68,3 @@ class Help(Frame):
     def initScrollbar(self):
         self.scrollbar = Scrollbar(self.lower_frame, command=self.text.yview)
         self.scrollbar.pack(side=RIGHT, fill=Y)
-
-
