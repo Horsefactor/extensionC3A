@@ -18,7 +18,7 @@ class Help(Frame):
                                 \n\t1.4. Run le programme
                             \r\n\r\n2. Option supplémentaire :
                                 \n\t2.1. sous-menu Outil:
-	                            \n\t\t2.1.1.  Changer le fichier de traduction\n\t\t2.1.2.	Recommencer le programme\n\t\t2..1.3.	Quitter le programme (ce qui valide la dernière version du fichier de détails
+	                            \n\t\t2.1.1.   Changer le fichier de traduction ou le fichier de détails\n\t\t2.1.2.	Recommencer le programme\n\t\t2..1.3.	Quitter le programme (ce qui valide la dernière version du fichier de détails
 
                                 \n\t2.2  sous-menu aide :
 	                            \n\t\t2.2.1	Page info (ici)\n\t\t2.2.2	Fichier détails, reprénant diverses éléments auxquels il faut faire attention. Ce n'est qu'une version temporaire la derniere version serra dans le fichier texte approprié\n\t\t2.2.3	Credits auteur

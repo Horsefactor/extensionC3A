@@ -14,21 +14,34 @@ class MenuWindow:
     def MenuHelp(self):
         self.subMenu2 = Menu(self.menubar, tearoff=0)
         self.menubar.add_cascade(label="Aide", 
-                                 menu =self.subMenu2)
+                                 menu =self.subMenu2,
+                                 underline = 0)
         self.subMenu2.add_command(label ="Info", 
-                                  command=lambda: self.controller.show_frame('Help'))
+                                  command=lambda: self.controller.show_frame('Help'),
+                                 underline = 0)
         self.subMenu2.add_command(label ="Details et erreur", 
-                                  command=lambda: self.controller.show_frame('Details'))
+                                  command=lambda: self.controller.show_frame('Details'),
+                                 underline = 0)
         self.subMenu2.add_command(label ="Credits", 
-                                  command=lambda: self.controller.show_frame('Descr'))
+                                  command=lambda: self.controller.show_frame('Descr'),
+                                 underline = 0)
 
     def MenuTools(self):
         self.subMenu = Menu(self.menubar, tearoff=0)
         self.menubar.add_cascade(label="Outils",
                                  menu=self.subMenu)
-        self.subMenu.add_command(label="Changer de fichier de traduction", 
-                                 command = self.controller.browse_file_trad)
+        self.subsubMenu = Menu(self.subMenu, tearoff=0)
+        self.subMenu.add_cascade(label='Changer',
+                                 menu=self.subsubMenu,
+                                 underline = 0)
+        self.subsubMenu.add_command(label='Fichier de traduction',
+                                    command = self.controller.browse_file_trad)
+        self.subsubMenu.add_command(label='Fichier de détails',
+                                    command = self.controller.browse_file_details)
+        self.subMenu.add_separator()
         self.subMenu.add_command(label="Exit", 
-                                 command= self.controller.destroy)
+                                 command= self.controller.destroy,
+                                 underline = 0)
         self.subMenu.add_command(label="Restart", 
-                                 command=lambda: self.controller.frames['Index'].restart())
+                                 command=lambda: self.controller.frames['Index'].restart(),
+                                 underline = 0)

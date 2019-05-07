@@ -33,7 +33,7 @@ index_trad_form = 5
 index_trad_dim = 6
 
 def mktabRevit(line):
-    '''format a line in revit file'''
+    ''' format a line in revit file '''
     elem = split(r'\t+', line)
     elem[0] = elem[0].lstrip('\ufeff')
     elem[-1] = elem[-1].rstrip('\n')
@@ -41,13 +41,13 @@ def mktabRevit(line):
     return list(map(lambda e:e.strip('\"'), elem))
 
 def createTabFromRevit(path) :
-     '''create tab from revit file that is formated with minimum a tabulation between columns'''
+     ''' create tab from revit file that is formated with minimum a tabulation between columns '''
      with open(path, "r", encoding="utf-16-le") as file :
 
         return list(map(mktabRevit, file))
 
 def mktabTrad(line):
-    ''' format a line in trad file'''
+    ''' format a line in trad file '''
     elem = split(r'\t+', line)
     elem[0] = elem[0].lstrip('\ufeff')
     elem[-1] = elem[-1].rstrip('\n')
@@ -55,14 +55,13 @@ def mktabTrad(line):
     return elem
 
 def createTabFromTrad(path) :
-     '''create trad file tab'''
+     ''' create trad file tab '''
      with open(path, "r", encoding="utf-16-le") as file :
 
         return list(map(mktabTrad, file))
 
-#write a txt file readable by the C3A excel plugin (if the tabs is well encoded)
 def writeTab(path, tab):
-    '''write a tab in a file'''
+    ''' write a tab in a file '''
     with open(path, "w", encoding="utf-16-le") as file :
 
         for elem in tab[:-1]:
@@ -71,16 +70,16 @@ def writeTab(path, tab):
         file.write('\t'.join(tab[-1]))
 
 def stringToNumber(string):
-    '''find a number in a string and return it in a type float'''
+    ''' find a number in a string and return it in a type float '''
     return float(findall(r'[-+]?\d*\.\d+|\d+', string)[0])
 
 def write(path, string):
-    '''write something writable in a file '''
+    ''' write something writable in a file '''
     with open(path, 'w', encoding='utf-16-le') as file:
         file.write(string)
 
 def mkNames(tab):
-    '''make all formated name'''
+    ''' make all formated name '''
     return list(map(mkname, tab))
 
 def mkname(elem):
@@ -92,7 +91,7 @@ def mkname(elem):
             elem[index_revit_dim2]]
 
 def itemNotInTab(tab, name):
-    '''Search if an item is not in the tab in function of his name'''
+    ''' Search if an item is not in the tab in function of his name '''
     for j in range(len(tab)):
 
         if tab[j][index_revit_name] == name:
@@ -101,7 +100,7 @@ def itemNotInTab(tab, name):
     return True
 
 def applyTradFile(INPUT, TRAD):
-    '''apply all the changes to send a new tab in excel'''
+    '''apply all the changes to send a new tab in excel '''
     OUT = []
     bitNoModified = [1]*len(INPUT)
     IN = mkNames(INPUT)
@@ -144,9 +143,9 @@ def applyTradFile(INPUT, TRAD):
                         IN[index][index_re_dim1],
                         '/!\ aucune traduction trouvé dans le fichier de trad'])
             warningsNoModif += '''[{}]\t:\t\tquantité 1:\t\t{}{};\tquantité 2:\t\t{}{};\r\n'''.format(IN[index][index_re_name],
-                                                                                               IN[index][index_re_q1],
-                                                                                               IN[index][index_re_dim1],
-                                                                                               IN[index][index_re_q2],
-                                                                                               IN[index][index_re_dim2])
+                                                                                                      IN[index][index_re_q1],
+                                                                                                      IN[index][index_re_dim1],
+                                                                                                      IN[index][index_re_q2],
+                                                                                                      IN[index][index_re_dim2])
 
     return OUT, warningsElemMissing, warningsNoModif

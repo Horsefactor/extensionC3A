@@ -27,16 +27,21 @@ class App(Tk):
         self.config(background = self.bg)
         self.iconbitmap('image/logoELLYPS.ico')
         self.w, self.h = self.winfo_screenwidth(), self.winfo_screenheight()
-        if 560 > self.w or 300 > self.h : self.sizeWindow = "%dx%d+0+0" % (self.w, self.h)
-        else : self.sizeWindow = '560x300'
+        self.sizeWindow = '560x300' if (560 < self.w and 300 < self.h) else "%dx%d+0+0" % (self.w, self.h)
         self.geometry(self.sizeWindow)
         self.resizable(0, 0)
 
         #Init file path
         self.nomenclatureFilePath = ''
         self.nomenclatureModifiedPath = ''
-        self.tradFilePath = 'TXT/trad.txt'
-        self.detailsAndErrPath = 'TXT/Details_and_errors.txt'
+        self.configFile = 'config/config.txt'
+        self.getTradAndDetailsPath()
+
+    def getTradAndDetailsPath(self):
+            file = open(self.configFile, 'r', encoding="utf-16-le")
+            self.detailsAndErrPath = file.readline().rstrip('\n')
+            self.tradFilePath = file.readline()
+            file.close()
 
     def initFrames(self):
         # The container is where we'll stack a bunch of frames
@@ -80,8 +85,22 @@ class App(Tk):
         frame.tkraise()
 
     def browse_file_trad(self):
-        self.tradFilePath = filedialog.askopenfilename(title="select file", 
+        self.tradFilePath = filedialog.askopenfilename(title="select file",
                                                        filetypes = (("text files", ".txt"),("all files", "*.*")))
+        self.majPath()
+
+    def browse_file_details(self):
+        f = filedialog.asksaveasfile(defaultextension=".txt")
+
+        if f is None:
+            return
+
+        self.detailsAndErrPath=f.name
+        self.majPath()
+
+    def majPath(self):
+        with open(self.configFile, 'w', encoding='utf-16-le') as file :
+            file.write(self.detailsAndErrPath + '\n' + self.tradFilePath)
 
     def main(self):
         self.details = ''
@@ -110,10 +129,13 @@ class App(Tk):
         #4 re-write C3A file
         fn.writeTab(self.nomenclatureModifiedPath, tabXLS)
 
-        #maj app
-        self.frames['Details'].text.config(state='normal')
-        self.frames['Details'].text.insert(END,self.details)
-        self.frames['Details'].text.config(state='disabled')
+        self.majTxt('Details')
 
     def writeDetails(self, string):
         fn.write(self.detailsAndErrPath,string)
+
+    def majTxt(self, frame_name):
+        '''maj of a text frame'''
+        self.frames[frame_name].text.config(state='normal')
+        self.frames[frame_name].text.insert(END,self.details)
+        self.frames[frame_name].text.config(state='disabled')

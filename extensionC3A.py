@@ -19,10 +19,11 @@ problem = 0
 app = App()
 
 try :
-    if __name__ == '__main__' : app.mainloop()
+    if __name__ == '__main__' : 
+        app.mainloop()
         
 #/!\ catch the most part (all non-exit exception) but not all /!\
-except ZeroDivisionError as e :
+except Exception as e :
     error += "Des erreurs se sont produites :\r\n"
     error += "{} : {}\r\n".format(e.__doc__, e)
     problem = 1
