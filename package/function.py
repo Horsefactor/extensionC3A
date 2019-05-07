@@ -64,24 +64,18 @@ def createTabFromTrad(path) :
 def writeTab(path, tab):
     '''write a tab in a file'''
     with open(path, "w", encoding="utf-16-le") as file :
-        counterLine=0
 
-        while counterLine< len(tab) :
-            counterColumn=0
-
-            while counterColumn < len(tab[counterLine]) -1 :
-                file.write("{}\t".format(tab[counterLine][counterColumn]))
-                counterColumn +=1
-
-            file.write("{}\n".format(tab[counterLine][counterColumn]))
-            counterLine +=1
+        for elem in tab[:-1]:
+            file.write('\t'.join(elem) + '\n')
+        
+        file.write('\t'.join(tab[-1]))
 
 def stringToNumber(string):
     '''find a number in a string and return it in a type float'''
     return float(findall(r'[-+]?\d*\.\d+|\d+', string)[0])
 
 def write(path, string):
-    '''write something in a file '''
+    '''write something writable in a file '''
     with open(path, 'w', encoding='utf-16-le') as file:
         file.write(string)
 
@@ -111,17 +105,10 @@ def applyTradFile(INPUT, TRAD):
     OUT = []
     bitNoModified = [1]*len(INPUT)
     IN = mkNames(INPUT)
-    i = 0
-    stop = 0
     warningsElemMissing = ''
     warningsNoModif = ''
 
-    for elem in TRAD :
-
-        if stop < 2 :
-            stop+=1
-            continue
-
+    for elem in TRAD[2:]:
         #elem marked as important in tradfile and missing in revit file
         if int(elem[index_trad_check]) == 1 and itemNotInTab(INPUT, elem[index_trad_name]):
             warningsElemMissing += '''[{}]\t missing\r\n'''.format(elem[index_trad_name])
@@ -136,7 +123,7 @@ def applyTradFile(INPUT, TRAD):
             if int(elem[index_trad_dim]) in (0,1) :
                 OUT.append([elem[index_trad_ref],
                             elem[index_trad_descr],
-                            float(elem[index_trad_form])*stringToNumber(IN[index][index_re_q1]),
+                            str(float(elem[index_trad_form])*stringToNumber(IN[index][index_re_q1])),
                             elem[index_trad_dim],
                             IN[index][index_re_name]])
             
@@ -144,23 +131,22 @@ def applyTradFile(INPUT, TRAD):
             else :
                 OUT.append([elem[index_trad_ref],
                             elem[index_trad_descr],
-                            float(elem[index_trad_form])*stringToNumber(IN[index][index_re_q2]),
+                            str(float(elem[index_trad_form])*stringToNumber(IN[index][index_re_q2])),
                             elem[index_trad_dim],
                             IN[index][index_re_name]])
 
-    for elem in bitNoModified :
+    for index, elem in enumerate(bitNoModified) :
         #elem ignore by trad file (no modif)
         if elem:
             OUT.append(['??????????????',
-                        IN[i][index_re_name],
-                        IN[i][index_re_q1],
-                        IN[i][index_re_dim1],
+                        IN[index][index_re_name],
+                        IN[index][index_re_q1],
+                        IN[index][index_re_dim1],
                         '/!\ aucune traduction trouvé dans le fichier de trad'])
-            warningsNoModif += '''[{}]\t:\t\tquantité 1:\t\t{}{};\tquantité 2:\t\t{}{};\r\n'''.format(IN[i][index_re_name],
-                                                                                            IN[i][index_re_q1],
-                                                                                            IN[i][index_re_dim1],
-                                                                                            IN[i][index_re_q2],
-                                                                                            IN[i][index_re_dim2])
-        i += 1
+            warningsNoModif += '''[{}]\t:\t\tquantité 1:\t\t{}{};\tquantité 2:\t\t{}{};\r\n'''.format(IN[index][index_re_name],
+                                                                                               IN[index][index_re_q1],
+                                                                                               IN[index][index_re_dim1],
+                                                                                               IN[index][index_re_q2],
+                                                                                               IN[index][index_re_dim2])
 
     return OUT, warningsElemMissing, warningsNoModif

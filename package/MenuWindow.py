@@ -25,10 +25,10 @@ class MenuWindow:
     def MenuTools(self):
         self.subMenu = Menu(self.menubar, tearoff=0)
         self.menubar.add_cascade(label="Outils",
-                                    menu=self.subMenu)
+                                 menu=self.subMenu)
         self.subMenu.add_command(label="Changer de fichier de traduction", 
-                                    command = self.controller.browse_file_trad)
+                                 command = self.controller.browse_file_trad)
         self.subMenu.add_command(label="Exit", 
-                                    command= self.controller.destroy)
+                                 command= self.controller.destroy)
         self.subMenu.add_command(label="Restart", 
-                                    command=lambda: self.controller.frames['Index'].restart())
+                                 command=lambda: self.controller.frames['Index'].restart())
