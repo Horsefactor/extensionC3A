@@ -1,2 +1,0 @@
-'config/trad.txt'
-'TXT/Details_and_errors.txt'

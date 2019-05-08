@@ -1,4 +1,5 @@
 from re import findall, split
+from package.Exc import*
 
 #revit structure
 index_revit_zone = 0
@@ -38,6 +39,11 @@ def mktabRevit(line):
     elem[0] = elem[0].lstrip('\ufeff')
     elem[-1] = elem[-1].rstrip('\n')
 
+    if len(elem) != 7:
+        raise ColumnError('''Les collones du fichier .txt sortit de revit ne sont pas complete
+                           \nS.v.p verrifier que les lignes contiennent bien 7 collonne 
+                           \nou que celle-ci ne sont pas séparée par des tabulations!''')
+
     return list(map(lambda e:e.strip('\"'), elem))
 
 def createTabFromRevit(path) :
@@ -54,7 +60,7 @@ def mktabTrad(line):
 
     return elem
 
-def createTabFromTrad(path) :
+def createTabFromTrad(path):
      ''' create trad file tab '''
      with open(path, "r", encoding="utf-16-le") as file :
 
@@ -108,6 +114,12 @@ def applyTradFile(INPUT, TRAD):
     warningsNoModif = ''
 
     for elem in TRAD[2:]:
+
+        if len(elem) != 7:
+            raise ColumnError('''Les collones du fichier de traduction.txt ne sont pas complète
+                               \nS.v.p verrifier que les lignes contiennent bien 7 collonne!
+                               \nou que celle-ci ne sont pas séparée par des tabulations!''')
+
         #elem marked as important in tradfile and missing in revit file
         if int(elem[index_trad_check]) == 1 and itemNotInTab(INPUT, elem[index_trad_name]):
             warningsElemMissing += '''[{}]\t missing\r\n'''.format(elem[index_trad_name])

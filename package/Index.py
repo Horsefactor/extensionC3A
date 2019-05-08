@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import filedialog
 from os import path
+from package.function import createTabFromRevit, createTabFromTrad, applyTradFile, writeTab
 
 class Index(Frame):
     def __init__(self, parent, controller):
@@ -9,7 +10,11 @@ class Index(Frame):
         self.height = 300
         self.controller = controller
         self.initWidget()
-        
+
+        #Init file path
+        self.nomenclatureFilePath = ''
+        self.nomenclatureModifiedPath = ''
+
     def initButton(self):
         #init buttons
         self.button1= Button(self.right_frame, 
@@ -97,33 +102,60 @@ class Index(Frame):
     def save_file_final(self):
         f = filedialog.asksaveasfile(defaultextension=".txt")
 
-        if f is None:   
+        if f is None:
             return
 
-        self.controller.nomenclatureModifiedPath=f.name
-        string ='To :  {}'.format(path.split(self.controller.nomenclatureModifiedPath)[1])
+        self.nomenclatureModifiedPath=f.name
+        string ='To :  {}'.format(path.split(self.nomenclatureModifiedPath)[1])
         self.button2.config(text=string)
 
-        if self.controller.nomenclatureModifiedPath != '' and self.controller.nomenclatureFilePath != '':
+        if self.nomenclatureModifiedPath != '' and self.nomenclatureFilePath != '':
             self.button3.config(state='normal')
 
     def browse_file_init(self):
-        self.controller.nomenclatureFilePath = filedialog.askopenfilename(title="select file", 
+        self.nomenclatureFilePath = filedialog.askopenfilename(title="select file", 
                                                                           filetypes = (("text files", ".txt"),("all files", "*.*")))
-        string ='From :  {}'.format(path.split(self.controller.nomenclatureFilePath)[1])
+        string ='From :  {}'.format(path.split(self.nomenclatureFilePath)[1])
         self.button1.config(text=string)
+        self.loadRevitTab()
 
-        if self.controller.nomenclatureModifiedPath != '' and self.controller.nomenclatureFilePath != '':
+        if self.nomenclatureModifiedPath != '' and self.nomenclatureFilePath != '':
             self.button3.config(state='normal')
 
     def run(self):
-        self.controller.main()
+        self.main()
         self.button3.config(text='Done', state='disabled')
 
     def restart(self):
         self.button1.config(text='Ouvrir un fichier')
         self.button2.config(text='Enregistrer sous')
         self.button3.config(text='Run', state='disabled')
-        self.controller.nomenclatureFilePath = ''
-        self.controller.nomenclatureModifiedPath = ''
+        self.nomenclatureFilePath = ''
+        self.nomenclatureModifiedPath = ''
         self.controller.details = ''
+
+    def loadRevitTab(self):
+        '''load tab from C3A txt file'''
+        self.tabREVIT = createTabFromRevit(self.nomenclatureFilePath)
+        self.controller.details += '1.\tVotre nomenclature a été importée pour modification.\n'
+
+    def main(self):
+        '''load tab for translating'''
+        self.tabTRAD = createTabFromTrad(self.controller.tradFilePath)
+        self.controller.details += '2.\tLe tableau de traduction a été chargé.\n'
+        self.tabXLS, warningsElemMissing, warningsNoModif = applyTradFile(self.tabREVIT, self.tabTRAD)
+        self.controller.details += '3.\tTout a été traduit.\r\n\r\n\t------------------------------------------------------------------------------------------\r\n\r\n'
+
+        if warningsElemMissing != '':
+            self.controller.details += '/!\\ Attention les éléments suivant ont été marqués d\'un check obligatoire dans le fichier de traduction et sont manquant dans l\'export revit:\r\n\r\n'
+            self.controller.details += warningsElemMissing
+
+        self.controller.details+= '\r\n\r\n\t------------------------------------------------------------------------------------------\r\n\r\n'
+
+        if warningsNoModif != '':
+            self.controller.details += '\r\n\r\n\r\n\r\n/!\\ Les éléments suivants n\'ont pas été modifiés par le fichier de traduction alors qu\'ils ont été exportés par revit.\nIl manque surement une ligne associée à cet élément dans le fichier de traduction :\r\n\r\n'
+            self.controller.details += warningsNoModif
+    
+        #4 re-write C3A file
+        writeTab(self.nomenclatureModifiedPath, self.tabXLS)
+        self.controller.majTxt('Details')

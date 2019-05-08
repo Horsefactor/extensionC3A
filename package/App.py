@@ -1,6 +1,6 @@
 from tkinter import*
 from tkinter import filedialog
-from package import function as fn
+from package.function import write
 from package.Help import Help
 from package.Descr import Descr
 from package.MenuWindow import MenuWindow
@@ -30,10 +30,9 @@ class App(Tk):
         self.sizeWindow = '560x300' if (560 < self.w and 300 < self.h) else "%dx%d+0+0" % (self.w, self.h)
         self.geometry(self.sizeWindow)
         self.resizable(0, 0)
+        self.details = ''
 
         #Init file path
-        self.nomenclatureFilePath = ''
-        self.nomenclatureModifiedPath = ''
         self.configFile = 'config/config.txt'
         self.getTradAndDetailsPath()
 
@@ -102,37 +101,8 @@ class App(Tk):
         with open(self.configFile, 'w', encoding='utf-16-le') as file :
             file.write(self.detailsAndErrPath + '\n' + self.tradFilePath)
 
-    def main(self):
-        self.details = ''
-
-        #1. load tab from C3A txt file
-        tabREVIT = fn.createTabFromRevit(self.nomenclatureFilePath)
-        self.details += '1.\tVotre nomenclature a été importée pour modification.\n'
-
-        #2. load tab for translating
-        tabTRAD = fn.createTabFromTrad(self.tradFilePath)
-        self.details += '2.\tLe tableau de traduction a été chargé.\n'
-
-        #3. applying translating
-        tabXLS, warningsElemMissing, warningsNoModif = fn.applyTradFile(tabREVIT, tabTRAD)
-        self.details += '3.\tTout a été traduit.\r\n\r\n\t------------------------------------------------------------------------------------------\r\n\r\n'
-
-        if warningsElemMissing != '':
-            self.details += '/!\\ Attention les éléments suivant ont été marqués d\'un check obligatoire dans le fichier de traduction et sont manquant dans l\'export revit:\r\n\r\n'
-            self.details += warningsElemMissing
-
-        self.details+= '\r\n\r\n\t------------------------------------------------------------------------------------------\r\n\r\n'
-        if warningsNoModif != '':
-            self.details += '\r\n\r\n\r\n\r\n/!\\ Les éléments suivants n\'ont pas été modifiés par le fichier de traduction alors qu\'ils ont été exportés par revit.\nIl manque surement une ligne associée à cet élément dans le fichier de traduction :\r\n\r\n'
-            self.details += warningsNoModif
-    
-        #4 re-write C3A file
-        fn.writeTab(self.nomenclatureModifiedPath, tabXLS)
-
-        self.majTxt('Details')
-
     def writeDetails(self, string):
-        fn.write(self.detailsAndErrPath,string)
+        write(self.detailsAndErrPath,  string)
 
     def majTxt(self, frame_name):
         '''maj of a text frame'''

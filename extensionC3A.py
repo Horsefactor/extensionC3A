@@ -2,6 +2,7 @@ __version__ = '0.5'
 __author__ = 'Thibault Delvaux,             \
              <thibaultdelvaux@outlook.fr>,  \
              <0484381244>'
+
 '''
 
 if you want to use/modify that software, 
@@ -19,10 +20,13 @@ problem = 0
 app = App()
 
 try :
-    if __name__ == '__main__' : 
+    if __name__ == '__main__' :
         app.mainloop()
         
 #/!\ catch the most part (all non-exit exception) but not all /!\
+except ColumnError as e :
+    error += e.msg
+
 except Exception as e :
     error += "Des erreurs se sont produites :\r\n"
     error += "{} : {}\r\n".format(e.__doc__, e)
@@ -43,7 +47,7 @@ finally :
         print("problem occured")
         DetErr = "le programme n\'a pas abouti, veuillez lire la doc ci-dessous pour comprendre pourquoi :\r\n\r\n" + DetErr
 
-    else :
+    else:
         print("Ok")
         DetErr = 'Le programme a abouti:\r\n\r\n' + DetErr
 
