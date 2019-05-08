@@ -46,7 +46,7 @@ def mktabRevit(line):
 
     return tuple(map(lambda e:e.strip('\"'), elem))
 
-def createTabFromRevit(path):
+def createTabFromRevit(path) :
      ''' create tab from revit file that is formated with minimum a tabulation between columns '''
      with open(path, "r", encoding="utf-16-le") as file :
 
