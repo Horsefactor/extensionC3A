@@ -24,8 +24,9 @@ try :
         app.mainloop()
         
 #/!\ catch the most part (all non-exit exception) but not all /!\
-except ColumnError as e :
+except Error as e :
     error += e.msg
+    problem = 1
 
 except Exception as e :
     error += "Des erreurs se sont produites :\r\n"
