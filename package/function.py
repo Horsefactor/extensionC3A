@@ -46,7 +46,7 @@ def mktabRevit(line):
 
     return tuple(map(lambda e:e.strip('\"'), elem))
 
-def createTabFromRevit(path) :
+def createTabFromRevit(path):
      ''' create tab from revit file that is formated with minimum a tabulation between columns '''
      with open(path, "r", encoding="utf-16-le") as file :
 
@@ -58,7 +58,7 @@ def mktabTrad(line):
     elem[0] = elem[0].lstrip('\ufeff')
     elem[-1] = elem[-1].rstrip('\n')
 
-    return elem
+    return tuple(elem)
 
 def createTabFromTrad(path):
      ''' create trad file tab '''
@@ -117,8 +117,8 @@ def applyTradFile(INPUT, TRAD):
 
         if len(elem) != 7:
             raise Error('''Les collones du fichier de traduction.txt ne sont pas complète
-                               \nS.v.p verrifier que les lignes contiennent bien 7 collonne!
-                               \nou que celle-ci ne sont pas séparée par des tabulations!''')
+                        \nS.v.p verrifier que les lignes contiennent bien 7 collonne!
+                        \nou que celle-ci ne sont pas séparée par des tabulations!''')
 
         #elem marked as important in tradfile and missing in revit file
         if int(elem[index_trad_check]) == 1 and itemNotInTab(INPUT, elem[index_trad_name]):
@@ -132,28 +132,28 @@ def applyTradFile(INPUT, TRAD):
 
             #0='pce'; 1='m'
             if int(elem[index_trad_dim]) in (0,1) :
-                OUT.append([elem[index_trad_ref],
+                OUT.append((elem[index_trad_ref],
                             elem[index_trad_descr],
                             str(float(elem[index_trad_form])*stringToNumber(IN[index][index_re_q1])),
                             elem[index_trad_dim],
-                            IN[index][index_re_name]])
+                            IN[index][index_re_name]))
             
             #2='m²'; 3='m³'
             else :
-                OUT.append([elem[index_trad_ref],
+                OUT.append((elem[index_trad_ref],
                             elem[index_trad_descr],
                             str(float(elem[index_trad_form])*stringToNumber(IN[index][index_re_q2])),
                             elem[index_trad_dim],
-                            IN[index][index_re_name]])
+                            IN[index][index_re_name]))
 
     for index, elem in enumerate(bitNoModified) :
         #elem ignore by trad file (no modif)
         if elem:
-            OUT.append(['??????????????',
+            OUT.append(('??????????????',
                         IN[index][index_re_name],
                         IN[index][index_re_q1],
                         IN[index][index_re_dim1],
-                        '/!\ aucune traduction trouvé dans le fichier de trad'])
+                        '/!\ aucune traduction trouvée dans le fichier de trad'))
             warningsNoModif += '''[{}]\t:\t\tquantité 1:\t\t{}{};\tquantité 2:\t\t{}{};\r\n'''.format(IN[index][index_re_name],
                                                                                                       IN[index][index_re_q1],
                                                                                                       IN[index][index_re_dim1],
