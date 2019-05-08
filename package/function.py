@@ -44,13 +44,13 @@ def mktabRevit(line):
                     \nS.v.p verrifier que les lignes contiennent bien 7 collonne 
                     \nou que celle-ci ne sont pas séparée par des tabulations!''')
 
-    return list(map(lambda e:e.strip('\"'), elem))
+    return tuple(map(lambda e:e.strip('\"'), elem))
 
 def createTabFromRevit(path) :
      ''' create tab from revit file that is formated with minimum a tabulation between columns '''
      with open(path, "r", encoding="utf-16-le") as file :
 
-        return list(map(mktabRevit, file))
+        return tuple(map(mktabRevit, file))
 
 def mktabTrad(line):
     ''' format a line in trad file '''
@@ -64,7 +64,7 @@ def createTabFromTrad(path):
      ''' create trad file tab '''
      with open(path, "r", encoding="utf-16-le") as file :
 
-        return list(map(mktabTrad, file))
+        return tuple(map(mktabTrad, file))
 
 def writeTab(path, tab):
     ''' write a tab in a file '''
@@ -86,15 +86,15 @@ def write(path, string):
 
 def mkNames(tab):
     ''' make all formated name '''
-    return list(map(mkname, tab))
+    return tuple(map(mkname, tab))
 
 def mkname(elem):
     ''' make formated name of an elem of revit file ''' 
-    return [elem[index_revit_zone] + '_' + elem[index_revit_name] + '_' + elem[index_revit_param],
+    return (elem[index_revit_zone] + '_' + elem[index_revit_name] + '_' + elem[index_revit_param],
             elem[index_revit_q1],
             elem[index_revit_dim1],
             elem[index_revit_q2],
-            elem[index_revit_dim2]]
+            elem[index_revit_dim2])
 
 def itemNotInTab(tab, name):
     ''' Search if an item is not in the tab in function of his name '''
