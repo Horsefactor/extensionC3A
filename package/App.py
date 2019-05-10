@@ -29,7 +29,7 @@ class App(Tk):
         self.w, self.h = self.winfo_screenwidth(), self.winfo_screenheight()
         self.sizeWindow = '560x300' if (560 < self.w and 300 < self.h) else "%dx%d+0+0" % (self.w, self.h)
         self.geometry(self.sizeWindow)
-        self.resizable(0, 0)
+        #self.resizable(0, 0)
         self.details = ''
 
         #Init file path
@@ -38,8 +38,10 @@ class App(Tk):
 
     def getTradAndDetailsPath(self):
             file = open(self.configFile, 'r', encoding="utf-16-le")
-            self.detailsAndErrPath = file.readline().rstrip('\n')
-            self.tradFilePath = file.readline()
+            self.details_And_Err_Path = file.readline().rstrip('\n')
+            self.trad_hvac_File_Path = file.readline().rstrip('\n')
+            self.trad_san_File_Path = file.readline().rstrip('\n')
+            self.trad_el_File_Path = file.readline()
             file.close()
 
     def initFrames(self):
@@ -83,8 +85,18 @@ class App(Tk):
 
         frame.tkraise()
 
-    def browse_file_trad(self):
-        self.tradFilePath = filedialog.askopenfilename(title="select file",
+    def browse_file_trad_hvac(self):
+        self.trad_hvac_File_Path = filedialog.askopenfilename(title="select file",
+                                                       filetypes = (("text files", ".txt"),("all files", "*.*")))
+        self.majPath()
+       
+    def browse_file_trad_san(self):
+        self.trad_san_File_Path = filedialog.askopenfilename(title="select file",
+                                                       filetypes = (("text files", ".txt"),("all files", "*.*")))
+        self.majPath()
+
+    def browse_file_trad_el(self):
+        self.trad_el_File_Path = filedialog.askopenfilename(title="select file",
                                                        filetypes = (("text files", ".txt"),("all files", "*.*")))
         self.majPath()
 
@@ -94,15 +106,18 @@ class App(Tk):
         if f is None:
             return
 
-        self.detailsAndErrPath=f.name
+        self.details_And_Err_Path=f.name
         self.majPath()
 
     def majPath(self):
         with open(self.configFile, 'w', encoding='utf-16-le') as file :
-            file.write(self.detailsAndErrPath + '\n' + self.tradFilePath)
+            file.write(self.details_And_Err_Path + '\n' + 
+                       self.trad_hvac_File_Path+ '\n' + 
+                       self.trad_san_File_Path+ '\n' + 
+                       self.trad_el_File_Path)
 
     def writeDetails(self, string):
-        write(self.detailsAndErrPath,  string)
+        write(self.details_And_Err_Path,  string)
 
     def majTxt(self, frame_name):
         '''maj of a text frame'''

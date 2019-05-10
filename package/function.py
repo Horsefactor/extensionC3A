@@ -62,7 +62,7 @@ def mktabTrad(line):
 
 def createTabFromTrad(path):
      ''' create trad file tab '''
-     with open(path, "r", encoding="utf-16-le") as file :
+     with open(path, "r") as file :
 
         return tuple(map(mktabTrad, file))
 
@@ -113,7 +113,7 @@ def applyTradFile(INPUT, TRAD):
     warningsElemMissing = ''
     warningsNoModif = ''
 
-    for elem in TRAD[2:]:
+    for elem in TRAD:
 
         if len(elem) != 7:
             raise Error('''Les collones du fichier de traduction.txt ne sont pas complète
@@ -149,7 +149,7 @@ def applyTradFile(INPUT, TRAD):
     for index, elem in enumerate(bitNoModified) :
         #elem ignore by trad file (no modif)
         if elem:
-            OUT.append(('??????????????',
+            OUT.append(('????????????',
                         IN[index][index_re_name],
                         IN[index][index_re_q1],
                         IN[index][index_re_dim1],

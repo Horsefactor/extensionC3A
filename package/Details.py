@@ -6,7 +6,6 @@ class Details(Frame):
         self.controller = controller
         self.config(bg=controller.bg)
         self.initWidget()
-        
     
     def initWidget(self):
         self.initFrame()
@@ -16,7 +15,7 @@ class Details(Frame):
 
     def initText(self):
         self.label = Label(self, 
-                           text="Details de l'opération\nChemin du fichier de détails:{}".format(self.controller.detailsAndErrPath),
+                           text="Details de l'opération\nChemin du fichier de détails:{}".format(self.controller.details_And_Err_Path),
                            font=("Helvetica",12,'bold'),
                            bg= self.controller.bg,
                            fg =self.controller.police)
