@@ -206,7 +206,6 @@ class Index(Frame):
 
             except AttributeError as e:
                 self.tabTRAD = tab
-                print(e)
 
         if self.state_el.get():
             tab = createTabFromTrad(self.controller.trad_el_File_Path)[2:]
@@ -216,7 +215,6 @@ class Index(Frame):
 
             except AttributeError as e:
                 self.tabTRAD = tab
-                print(e)
 
         self.controller.details += '2.\tLe(s) tableau de traduction a(ont) été chargé(s).\n'
 
@@ -240,7 +238,6 @@ class Index(Frame):
             writeTab(self.nomenclature_Modified_Path, tabXLS)
             self.controller.majTxt('Details')
             self.done = True
-            print(self.controller.details)
 
         except AttributeError as e:
             messagebox.showinfo('Erreur !',

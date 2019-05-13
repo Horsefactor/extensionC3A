@@ -47,11 +47,9 @@ finally :
     DetErr = userInfo + error + '\r\n\t ------------------------------------------------------------------------------------------\r\n' + app.details
 
     if problem:
-        print("problem occured")
         DetErr = "le programme n\'a pas abouti, veuillez lire la doc ci-dessous pour comprendre pourquoi :\r\n\r\n" + DetErr
 
     else:
-        print("Ok")
         DetErr = 'Le programme a abouti:\r\n\r\n' + DetErr
 
     app.writeDetails(DetErr)
