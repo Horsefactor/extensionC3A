@@ -64,5 +64,5 @@ class MenuWindow:
                                  command= self.controller.destroy,
                                  underline = 0)
         self.subMenu.add_command(label="Restart",
-                                 command=lambda: self.controller.frames['Index'].restart(),
+                                 command=self.controller.frames['Index'].restart,
                                  underline = 0)

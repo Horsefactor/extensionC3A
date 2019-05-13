@@ -16,15 +16,16 @@ class Details(Frame):
     def initText(self):
         self.label = Label(self, 
                            text="Details de l'opération\nChemin du fichier de détails:{}".format(self.controller.details_And_Err_Path),
-                           font=("Helvetica",12,'bold'),
+                           font=("Helvetica",20,'bold'),
                            bg= self.controller.bg,
                            fg =self.controller.police)
         self.label.pack(side="top")
 
         self.text = Text(self.lower_frame,
-                         font=("Helvetica",10,'bold'),
+                         font=("Calibri",15,'bold'),
                          state='disabled',
-                         bg ='#FAFACE')
+                         bg ='#F6F1FF',
+                         fg ='#00163A')
         self.text.place(relwidth = 1, relheight=1)
 
     def initButton(self):

@@ -23,6 +23,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="setup.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="package\App.py">
       <SubType>Code</SubType>
     </Compile>
@@ -35,7 +38,6 @@
     <Compile Include="package\Help.py" />
     <Compile Include="package\Index.py" />
     <Compile Include="package\MenuWindow.py" />
-    <Compile Include="package\test_package.py" />
     <Compile Include="package\__init__.py">
       <SubType>Code</SubType>
     </Compile>

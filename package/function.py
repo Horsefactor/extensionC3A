@@ -1,5 +1,5 @@
 from re import findall, split
-from package.Exc import*
+from package.Exc import Error
 
 #revit structure
 index_revit_zone = 0

@@ -18,18 +18,18 @@ class App(Tk):
         self.show_frame('Index')
 
     def initConfig(self):
-        #App config
-        self.bg = '#63CD9B'
-        self.police = '#FBE332'
-        self.button = '#0EA5F1'
+        '''App config'''
+        self.bg = '#99B2DD'
+        self.police = 'white'
+        self.button = '#2060B1'
         self.details = ''
-        self.title("extensionC3A")
+        self.title("Traduction cc")
         self.config(background = self.bg)
         self.iconbitmap('image/logoELLYPS.ico')
         self.w, self.h = self.winfo_screenwidth(), self.winfo_screenheight()
         self.sizeWindow = '560x300' if (560 < self.w and 300 < self.h) else "%dx%d+0+0" % (self.w, self.h)
         self.geometry(self.sizeWindow)
-        #self.resizable(0, 0)
+        self.resizable(0, 0)
         self.details = ''
 
         #Init file path
@@ -37,12 +37,13 @@ class App(Tk):
         self.getTradAndDetailsPath()
 
     def getTradAndDetailsPath(self):
-            file = open(self.configFile, 'r', encoding="utf-16-le")
-            self.details_And_Err_Path = file.readline().rstrip('\n')
-            self.trad_hvac_File_Path = file.readline().rstrip('\n')
-            self.trad_san_File_Path = file.readline().rstrip('\n')
-            self.trad_el_File_Path = file.readline()
-            file.close()
+        '''get config from config file'''
+        file = open(self.configFile, 'r', encoding="utf-16-le")
+        self.details_And_Err_Path = file.readline().rstrip('\n').lstrip('\ufeff')
+        self.trad_hvac_File_Path = file.readline().rstrip('\n')
+        self.trad_san_File_Path = file.readline().rstrip('\n')
+        self.trad_el_File_Path = file.readline()
+        file.close()
 
     def initFrames(self):
         # The container is where we'll stack a bunch of frames
@@ -68,7 +69,7 @@ class App(Tk):
         frame = self.frames[page_name]
         
         if page_name == 'Index':
-            self.title("ExtensionC3A")
+            self.title("Traduction cc")
             self.geometry(self.sizeWindow)
 
         if page_name == 'Descr':
@@ -86,21 +87,25 @@ class App(Tk):
         frame.tkraise()
 
     def browse_file_trad_hvac(self):
+        '''get input from user to know path of trad_hvac file'''
         self.trad_hvac_File_Path = filedialog.askopenfilename(title="select file",
                                                        filetypes = (("text files", ".txt"),("all files", "*.*")))
         self.majPath()
        
     def browse_file_trad_san(self):
+        '''get input from user to know path of trad_san file'''
         self.trad_san_File_Path = filedialog.askopenfilename(title="select file",
                                                        filetypes = (("text files", ".txt"),("all files", "*.*")))
         self.majPath()
 
     def browse_file_trad_el(self):
+        '''get input from user to know path of trad_el file'''
         self.trad_el_File_Path = filedialog.askopenfilename(title="select file",
                                                        filetypes = (("text files", ".txt"),("all files", "*.*")))
         self.majPath()
 
     def browse_file_details(self):
+        '''get input from user for saving details'''
         f = filedialog.asksaveasfile(defaultextension=".txt")
 
         if f is None:
@@ -110,6 +115,7 @@ class App(Tk):
         self.majPath()
 
     def majPath(self):
+        '''maj of different path to any file, maj of app's config'''
         with open(self.configFile, 'w', encoding='utf-16-le') as file :
             file.write(self.details_And_Err_Path + '\n' + 
                        self.trad_hvac_File_Path+ '\n' + 
@@ -117,6 +123,7 @@ class App(Tk):
                        self.trad_el_File_Path)
 
     def writeDetails(self, string):
+        '''write a string on the current details file'''
         write(self.details_And_Err_Path,  string)
 
     def majTxt(self, frame_name):

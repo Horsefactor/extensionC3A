@@ -37,14 +37,15 @@ class Help(Frame):
     def initLabel(self):
         label = Label(self, 
                       text="Comment utiliser l'application:",
-                      font=("Helvetica",12,'bold'),
+                      font=("Helvetica",20,'bold'),
                       bg= self.controller.bg,
                       fg =self.controller.police)
         label.pack(side="top", fill="x")
 
         self.text = Text(self.lower_frame, 
-                         font=("Helvetica",10,'bold'),
-                         bg ='#FAFACE')
+                         font=("Calibri",15,'bold'),
+                         bg ='#F6F1FF',
+                         fg ='#00163A')
         self.text.insert(END, self.txt)
         self.text.place(relwidth = 1, relheight=1)
         self.text.config(state='disabled')

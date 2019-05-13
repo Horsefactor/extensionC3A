@@ -21,13 +21,13 @@ class Descr(Frame):
         self.label.pack(side="top", fill="x", pady=10)
 
         me = Text(self.lower_frame, 
-                      font=("Helvetica",10,'bold'),
-                      bg ='#FAFACE')
+                      font=("Calibri",13,'bold'),
+                      bg ='#F6F1FF',
+                      fg ='#00163A')
         me.insert(END, 'Ce programme a été réalisé dans mon stage en tant qu\'étudiant \npour devenir ingénieur informaticien.\
                             \r\n\r\nNom et prénom : Thibault Delvaux\
                             \nEmail : thibaultdelvaux@outlook.fr\
-                            \nNuméro de GSM : +32 484 381 244 \
-                            \r\n\r\nMention à l\'auteur de l\'image du menu principal : Kiran Shastry')
+                            \nNuméro de GSM : +32 484 381 244')
         me.place(relwidth = 1, relheight=1)
         me.config(state='disabled')
 
@@ -42,7 +42,7 @@ class Descr(Frame):
                         fg=self.controller.police,
                         command=lambda: self.controller.show_frame("Index"))
         button.pack(fill = 'both',side=BOTTOM)
-
+        
     def initFrame(self):
         self.lower_frame = Frame(self, bg ='#81C1FF', bd = 10)
         self.lower_frame.place(relx=0.5, rely=0.25, relwidth=0.9, relheight=0.7, anchor='n')

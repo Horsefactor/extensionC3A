@@ -13,6 +13,7 @@ please keep mentioning my name in your version !
 from getpass import getuser
 from datetime import datetime
 from package.App import App
+import sys
 
 error = ''
 userInfo = ''
@@ -35,13 +36,14 @@ except Exception as e :
 
 finally :
     now = datetime.today()
-    userInfo = 'Date de dernière modification:\t\tLe {}/{}/{}\tà {}h{}m{}s\nDernier utilisateur a avoir modifié le fichier par extensionC3A:\t{}\n'.format(now.day,
-                                                                                                                                                           now.month,
-                                                                                                                                                           now.year,
-                                                                                                                                                           now.hour,
-                                                                                                                                                           now.minute,
-                                                                                                                                                           now.second,
-                                                                                                                                                           getuser())
+    userInfo = '''Date de dernière modification:\t\tLe {}/{}/{}
+                  à {}h{}m{}s\nDernier utilisateur a avoir modifié le fichier par l\'application \"traduction cc\":\t{}\n'''.format(now.day,
+                                                                                                                                    now.month,
+                                                                                                                                    now.year,
+                                                                                                                                    now.hour,
+                                                                                                                                    now.minute,
+                                                                                                                                    now.second,
+                                                                                                                                    getuser())
     DetErr = userInfo + error + '\r\n\t ------------------------------------------------------------------------------------------\r\n' + app.details
 
     if problem:
