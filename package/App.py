@@ -129,5 +129,6 @@ class App(Tk):
     def majTxt(self, frame_name):
         '''maj of a text frame'''
         self.frames[frame_name].text.config(state='normal')
+        self.frames[frame_name].text.delete(0,END)
         self.frames[frame_name].text.insert(END,self.details)
         self.frames[frame_name].text.config(state='disabled')

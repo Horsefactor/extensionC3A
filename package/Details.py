@@ -25,7 +25,8 @@ class Details(Frame):
                          font=("Calibri",15,'bold'),
                          state='disabled',
                          bg ='#F6F1FF',
-                         fg ='#00163A')
+                         fg ='#00163A',
+                         wrap ='word')
         self.text.place(relwidth = 1, relheight=1)
 
     def initButton(self):

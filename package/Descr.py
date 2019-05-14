@@ -23,7 +23,8 @@ class Descr(Frame):
         me = Text(self.lower_frame, 
                       font=("Calibri",13,'bold'),
                       bg ='#F6F1FF',
-                      fg ='#00163A')
+                      fg ='#00163A',
+                      wrap ='word')
         me.insert(END, 'Ce programme a été réalisé dans mon stage en tant qu\'étudiant \npour devenir ingénieur informaticien.\
                             \r\n\r\nNom et prénom : Thibault Delvaux\
                             \nEmail : thibaultdelvaux@outlook.fr\

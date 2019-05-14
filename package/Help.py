@@ -15,10 +15,11 @@ class Help(Frame):
 	                            \n\t\tcheckmark = 0 (1=check;0=non)\n\t\tnom cible = 1\n\t\tparamètre = 2\n\t\treférence article = 3\n\t\tdescription = 4\n\t\tformule = 5\n\t\tdim = 6 (0=pce;1=m;2=m²;3=m³)
 
                                 \n\t1.3. Choisir le fichier de destination
-                                \n\t1.4. Run le programme
+                                \n\t1.4  Choisir les éléments que contienne le fichier revit
+                                \n\t1.5. Run le programme
                             \r\n\r\n2. Option supplémentaire :
                                 \n\t2.1. sous-menu Outil:
-	                            \n\t\t2.1.1.   Changer le fichier de traduction ou le fichier de détails\n\t\t2.1.2.	Recommencer le programme\n\t\t2..1.3.	Quitter le programme (ce qui valide la dernière version du fichier de détails
+	                            \n\t\t2.1.1.   Changer les fichiers de traduction ou le fichier de détails\n\t\t2.1.2.	Recommencer le programme\n\t\t2..1.3.	Quitter le programme (ce qui valide la dernière version du fichier de détails
 
                                 \n\t2.2  sous-menu aide :
 	                            \n\t\t2.2.1	Page info (ici)\n\t\t2.2.2	Fichier détails, reprénant diverses éléments auxquels il faut faire attention. Ce n'est qu'une version temporaire la derniere version serra dans le fichier texte approprié\n\t\t2.2.3	Credits auteur
@@ -45,7 +46,8 @@ class Help(Frame):
         self.text = Text(self.lower_frame, 
                          font=("Calibri",15,'bold'),
                          bg ='#F6F1FF',
-                         fg ='#00163A')
+                         fg ='#00163A',
+                         wrap ='word')
         self.text.insert(END, self.txt)
         self.text.place(relwidth = 1, relheight=1)
         self.text.config(state='disabled')
