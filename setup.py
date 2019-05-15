@@ -15,12 +15,13 @@ os.environ['TK_LIBRARY'] = os.path.join(PYTHON_INSTALL_DIR, 'tcl', 'tk8.6')
 options = {
     'build_exe': {
         'include_files':[
-            os.path.join(PYTHON_INSTALL_DIR, 'DLLs', 'tk86t.dll'),
-            os.path.join(PYTHON_INSTALL_DIR, 'DLLs', 'tcl86t.dll'),
+            (os.path.join(PYTHON_INSTALL_DIR, 'DLLs', 'tk86t.dll'), os.path.join('lib', 'tk86t.dll')),
+            (os.path.join(PYTHON_INSTALL_DIR, 'DLLs', 'tcl86t.dll'), os.path.join('lib', 'tcl86t.dll')),
             'image/logoELLyps.ico',
             'image/logoELLyps.png',
             'config/config.txt'
          ],
+        "include_msvcr" :True,
     },
 }
 
