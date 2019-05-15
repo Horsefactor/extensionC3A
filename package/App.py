@@ -1,3 +1,8 @@
+__date__= '<15/05/2019>'
+__author__ = 'Thibault Delvaux,             \
+             <thibaultdelvaux@outlook.fr>,  \
+             <0484381244>'
+
 from tkinter import*
 from tkinter import filedialog
 from package.function import write
@@ -7,8 +12,10 @@ from package.MenuWindow import MenuWindow
 from package.Index import Index
 from package.Details import Details
 from tkinter import messagebox
+from os import path
 
 class App(Tk):
+    '''router of differents page with the same menu bar and some attributes'''
     def __init__(self, *args, **kwargs) :
         Tk.__init__(self, *args, **kwargs)
         self.initConfig()
@@ -31,17 +38,16 @@ class App(Tk):
         self.sizeWindow = '560x300' if (560 < self.w and 300 < self.h) else "%dx%d+0+0" % (self.w, self.h)
         self.geometry(self.sizeWindow)
         self.resizable(0, 0)
-        self.details = ''
 
         #Init file path
         self.configFile = 'config/config.txt'
-        self.getTradAndDetailsPath()
+        self.details_And_Err_Path = ''
+        self.getTradsPath()
 
-    def getTradAndDetailsPath(self):
+    def getTradsPath(self):
         '''get config from config file'''
         file = open(self.configFile, 'r', encoding="utf-16-le")
-        self.details_And_Err_Path = file.readline().rstrip('\n').lstrip('\ufeff')
-        self.trad_hvac_File_Path = file.readline().rstrip('\n')
+        self.trad_hvac_File_Path = file.readline().rstrip('\n').lstrip('\ufeff')
         self.trad_san_File_Path = file.readline().rstrip('\n')
         self.trad_el_File_Path = file.readline()
         file.close()
@@ -69,6 +75,7 @@ class App(Tk):
         '''Show a frame for the given page name'''
         frame = self.frames[page_name]
         
+        #adapt the title and windows size
         if page_name == 'Index':
             self.title("Traduction cc")
             self.geometry(self.sizeWindow)
@@ -93,6 +100,7 @@ class App(Tk):
             self.trad_hvac_File_Path = filedialog.askopenfilename(title="select file",
                                                        filetypes = (("text files", ".txt"),("all files", "*.*")))
             self.majPath()
+
         except FileNotFoundError as e:
             messagebox.showinfo(e)
        
@@ -102,6 +110,7 @@ class App(Tk):
             self.trad_san_File_Path = filedialog.askopenfilename(title="select file",
                                                        filetypes = (("text files", ".txt"),("all files", "*.*")))
             self.majPath()
+
         except FileNotFoundError as e:
             messagebox.showinfo(e)
 
@@ -111,28 +120,14 @@ class App(Tk):
             self.trad_el_File_Path = filedialog.askopenfilename(title="select file",
                                                        filetypes = (("text files", ".txt"),("all files", "*.*")))
             self.majPath()
+
         except FileNotFoundError as e:
-            messagebox.showinfo(e)
-        
-    def browse_file_details(self):
-        '''get input from user for saving details'''
-        try:
-            f = filedialog.asksaveasfile(defaultextension=".txt")
-
-            if f is None:
-                return
-
-            self.details_And_Err_Path=f.name
-            self.majPath()
-
-        except Exception as e:
             messagebox.showinfo(e)
 
     def majPath(self):
         '''maj of different path to any file, maj of app's config'''
         with open(self.configFile, 'w', encoding='utf-16-le') as file :
-            file.write(self.details_And_Err_Path + '\n' + 
-                       self.trad_hvac_File_Path+ '\n' + 
+            file.write(self.trad_hvac_File_Path+ '\n' + 
                        self.trad_san_File_Path+ '\n' + 
                        self.trad_el_File_Path)
 

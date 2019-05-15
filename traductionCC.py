@@ -1,4 +1,5 @@
 __version__ = '0.5'
+__date__= '<15/05/2019>'
 __author__ = 'Thibault Delvaux,             \
              <thibaultdelvaux@outlook.fr>,  \
              <0484381244>'
@@ -17,18 +18,20 @@ import sys
 
 error = ''
 userInfo = ''
+#bool value to know if a problem occured for adjusting the details file
 problem = 0
 app = App()
 
 try :
     if __name__ == '__main__' :
+        #run the GUI
         app.mainloop()
-        
-#/!\ catch the most part (all non-exit exception) but not all /!\
+#if some exception has been raised        
 except Error as e :
     error += e.msg
     problem = 1
 
+#/!\ catch the most part (all non-exit exception) but not all /!\
 except Exception as e :
     error += "Des erreurs se sont produites :\r\n"
     error += "{} : {}\r\n".format(e.__doc__, e)

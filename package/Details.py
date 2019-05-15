@@ -1,3 +1,8 @@
+__date__= '<15/05/2019>'
+__author__ = 'Thibault Delvaux,             \
+             <thibaultdelvaux@outlook.fr>,  \
+             <0484381244>'
+
 from tkinter import*
 
 class Details(Frame):
@@ -14,6 +19,8 @@ class Details(Frame):
         self.initScrollbar()
 
     def initText(self):
+
+        #init title label
         self.label = Label(self, 
                            text="Details de l'opération\nChemin du fichier de détails:{}".format(self.controller.details_And_Err_Path),
                            font=("Helvetica",20,'bold'),
@@ -21,6 +28,7 @@ class Details(Frame):
                            fg =self.controller.police)
         self.label.pack(side="top")
 
+        #init main text
         self.text = Text(self.lower_frame,
                          font=("Calibri",15,'bold'),
                          state='disabled',
@@ -30,6 +38,7 @@ class Details(Frame):
         self.text.place(relwidth = 1, relheight=1)
 
     def initButton(self):
+        #button to go back to the main menu
         self.button = Button(self.lower_frame, 
                              text="Aller à la page principale",
                              padx = 8,
@@ -42,6 +51,7 @@ class Details(Frame):
         self.button.pack(fill = 'both',side=BOTTOM)
 
     def initFrame(self):
+        '''frame for containing txt and button'''
         self.lower_frame = Frame(self, bg ='#81C1FF', bd = 10)
         self.lower_frame.place(relx=0.5, rely=0.25, relwidth=0.9, relheight=0.7, anchor='n')
 

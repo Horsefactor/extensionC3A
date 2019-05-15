@@ -1,3 +1,8 @@
+__date__= '<15/05/2019>'
+__author__ = 'Thibault Delvaux,             \
+             <thibaultdelvaux@outlook.fr>,  \
+             <0484381244>'
+
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
@@ -18,10 +23,12 @@ class Index(Frame):
         self.done = False
 
     def initCheckbox(self):
+        #var which contain de state of checkbox
         self.state_hvac = IntVar()
         self.state_san = IntVar()
         self.state_el = IntVar()
 
+        #checkbox to decide if you translate by hvac/san/el
         hvac = Checkbutton(self.bottom_left_frame,
                            bg=self.controller.bg,
                            padx = 3,
@@ -101,10 +108,10 @@ class Index(Frame):
         self.button4.pack(fill=X, side=BOTTOM)
 
     def initFrame(self):
+        '''structure of the page'''
         self.left_frame = Frame(self, width = 150, bg=self.controller.bg)
         self.bottom_left_frame = Frame(self.left_frame,width = 150,bg=self.controller.bg)
         self.top_left_frame = Frame(self.left_frame,width = 150,bg=self.controller.bg)
-        
         self.right_frame = Frame(self,bg=self.controller.bg, padx=6,pady =6)
 
         self.left_frame.grid(row=0, column=0, rowspan=2, sticky='nsew')
@@ -112,14 +119,13 @@ class Index(Frame):
         self.top_left_frame.grid(row=0, column=0, sticky='nse')
         self.bottom_left_frame.grid(row=1, column=0, sticky='ew')
         
-
         Grid.rowconfigure(self, 0, weight=1)
 
         for x in (0,1):
             Grid.columnconfigure(self, x, weight=1)
 
     def initImage(self):
-        #init image
+        '''init image in a canvas'''
         self.image = PhotoImage(file="image/logoELLYPS.png").zoom(20).subsample(32)
         self.canvas = Canvas(self.top_left_frame,
                              width= self.width,
@@ -139,6 +145,7 @@ class Index(Frame):
         self.label_title.pack()
 
     def initWidget(self):
+        '''init all widget'''
         self.initFrame()
         self.initImage()
         self.initCheckbox()
@@ -146,19 +153,23 @@ class Index(Frame):
         self.initButton()
 
     def save_file_final(self):
+        '''get output file from user'''
         f = filedialog.asksaveasfile(defaultextension=".txt")
 
         if f is None:
             return
 
         self.nomenclature_Modified_Path=f.name
-        string ='To :  {}'.format(path.split(self.nomenclature_Modified_Path)[1])
+        pathfinal = path.split(self.nomenclature_Modified_Path)
+        string ='To :  {}'.format(pathfinal[1])
         self.button2.config(text=string)
+        self.controller.details_And_Err_Path = pathfinal[0] + '/Details.txt'
 
         if self.nomenclature_Modified_Path != '' and self.nomenclature_File_Path != '':
             self.button3.config(state='normal')
 
     def browse_file_init(self):
+        '''get input file from user'''
         try:
             self.nomenclature_File_Path = filedialog.askopenfilename(title="select file", 
                                                                               filetypes = (("text files", ".txt"),("all files", "*.*")))
@@ -173,6 +184,7 @@ class Index(Frame):
             messagebox.showinfo(e)
 
     def main(self):
+        '''main program, run all things'''
         self.load_trad_file()
         self.translate()
 
@@ -180,6 +192,7 @@ class Index(Frame):
             self.button3.config(text='Done', state='disabled')
 
     def restart(self):
+        '''re-init all except trad's files'''
         self.button1.config(text='Ouvrir un fichier')
         self.button2.config(text='Enregistrer sous')
         self.button3.config(text='Run', state='disabled')

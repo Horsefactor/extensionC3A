@@ -1,3 +1,8 @@
+__date__= '<15/05/2019>'
+__author__ = 'Thibault Delvaux,             \
+             <thibaultdelvaux@outlook.fr>,  \
+             <0484381244>'
+
 from re import findall, split
 from package.Exc import Error
 
@@ -46,7 +51,7 @@ def mktabRevit(line):
 
     return tuple(map(lambda e:e.strip('\"'), elem))
 
-def createTabFromRevit(path) :
+def createTabFromRevit(path):
      ''' create tab from revit file that is formated with minimum a tabulation between columns '''
      with open(path, "r", encoding="utf-16-le") as file :
 
@@ -63,8 +68,8 @@ def mktabTrad(line):
 def createTabFromTrad(path):
      ''' create trad file tab '''
      with open(path, "r") as file :
-
-        return tuple(map(mktabTrad, file))
+     
+         return tuple(map(mktabTrad, file))
 
 def writeTab(path, tab):
     ''' write a tab in a file '''

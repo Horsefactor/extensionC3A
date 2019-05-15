@@ -1,3 +1,8 @@
+__date__= '<15/05/2019>'
+__author__ = 'Thibault Delvaux,             \
+             <thibaultdelvaux@outlook.fr>,  \
+             <0484381244>'
+
 from tkinter import Menu
 
 class MenuWindow:
@@ -35,34 +40,25 @@ class MenuWindow:
 
         self.menubar.add_cascade(label="Outils",
                                  menu=self.subMenu)
-        self.subMenu.add_cascade(label='Changer',
+        self.subMenu.add_cascade(label='Fichier de traduction',
                                  menu=self.change,
                                  underline = 0)
-        self.change.add_cascade(label='Fichier de traduction',
-                                menu=self.trad_menu,
-                                underline=0)
-
-        self.trad_menu.add_command(label='HVAC',
-                                   command=self.controller.browse_file_trad_hvac,
-                                   underline = 0)
-        self.trad_menu.add_command(label='SAN',
-                                   command=self.controller.browse_file_trad_san,
-                                   underline = 0)
-        self.trad_menu.add_command(label='EL',
-                                   command=self.controller.browse_file_trad_el,
-                                   underline = 0)
-
-        self.change.add_separator()
-
-        self.change.add_command(label='Fichier de détails',
-                                command = self.controller.browse_file_details,
-                                underline = 0)
-
         self.subMenu.add_separator()
-
         self.subMenu.add_command(label="Exit",
                                  command= self.controller.destroy,
                                  underline = 0)
         self.subMenu.add_command(label="Restart",
                                  command=self.controller.frames['Index'].restart,
                                  underline = 0)
+
+        self.change.add_command(label='HVAC',
+                                command=self.controller.browse_file_trad_hvac,
+                                underline = 0)
+        self.change.add_separator()
+        self.change.add_command(label='SAN',
+                                command=self.controller.browse_file_trad_san,
+                                underline = 0)
+        self.change.add_separator()
+        self.change.add_command(label='EL',
+                                command=self.controller.browse_file_trad_el,
+                                underline = 0)
