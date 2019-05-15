@@ -1,22 +1,7 @@
 from cx_Freeze import setup, Executable
 import os.path
 import sys
-from getpass import getuser
-from datetime import datetime
-from tkinter import*
-from tkinter import filedialog
-from tkinter import messagebox
-from os import path
-from package.function import*
-from re import findall, split
 
-from package.App import App
-from package.Exc import Error
-from package.Help import Help
-from package.Descr import Descr
-from package.MenuWindow import MenuWindow
-from package.Index import Index
-from package.Details import Details
 
 base = None
 
@@ -39,8 +24,13 @@ options = {
     },
 }
 
-setup(options = options,
-      name='TraductionCC',
-      version = '0.6',
-      description="GUI for the software traductionCC wich provides a translating of a Revit file and manage data's",
-      executables= [Executable("extensionC3A.py", base=base)])
+setup(
+    options=options,
+    name='TraductionCC',
+    version = '0.6',
+    author = 'Thibault Delvaux',
+    author_email = "thibaultdelvaux@outlook.fr",
+    url= 'https://github.com/Horsefactor',
+    description="GUI for the software traductionCC wich provides a translating of a Revit file and manage data's",
+    executables=[Executable("traductionCC.py", base=base)]
+)

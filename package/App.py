@@ -6,6 +6,7 @@ from package.Descr import Descr
 from package.MenuWindow import MenuWindow
 from package.Index import Index
 from package.Details import Details
+from tkinter import messagebox
 
 class App(Tk):
     def __init__(self, *args, **kwargs) :
@@ -88,31 +89,44 @@ class App(Tk):
 
     def browse_file_trad_hvac(self):
         '''get input from user to know path of trad_hvac file'''
-        self.trad_hvac_File_Path = filedialog.askopenfilename(title="select file",
+        try:
+            self.trad_hvac_File_Path = filedialog.askopenfilename(title="select file",
                                                        filetypes = (("text files", ".txt"),("all files", "*.*")))
-        self.majPath()
+            self.majPath()
+        except FileNotFoundError as e:
+            messagebox.showinfo(e)
        
     def browse_file_trad_san(self):
         '''get input from user to know path of trad_san file'''
-        self.trad_san_File_Path = filedialog.askopenfilename(title="select file",
+        try:
+            self.trad_san_File_Path = filedialog.askopenfilename(title="select file",
                                                        filetypes = (("text files", ".txt"),("all files", "*.*")))
-        self.majPath()
+            self.majPath()
+        except FileNotFoundError as e:
+            messagebox.showinfo(e)
 
     def browse_file_trad_el(self):
         '''get input from user to know path of trad_el file'''
-        self.trad_el_File_Path = filedialog.askopenfilename(title="select file",
+        try:
+            self.trad_el_File_Path = filedialog.askopenfilename(title="select file",
                                                        filetypes = (("text files", ".txt"),("all files", "*.*")))
-        self.majPath()
-
+            self.majPath()
+        except FileNotFoundError as e:
+            messagebox.showinfo(e)
+        
     def browse_file_details(self):
         '''get input from user for saving details'''
-        f = filedialog.asksaveasfile(defaultextension=".txt")
+        try:
+            f = filedialog.asksaveasfile(defaultextension=".txt")
 
-        if f is None:
-            return
+            if f is None:
+                return
 
-        self.details_And_Err_Path=f.name
-        self.majPath()
+            self.details_And_Err_Path=f.name
+            self.majPath()
+
+        except Exception as e:
+            messagebox.showinfo(e)
 
     def majPath(self):
         '''maj of different path to any file, maj of app's config'''
@@ -129,6 +143,6 @@ class App(Tk):
     def majTxt(self, frame_name):
         '''maj of a text frame'''
         self.frames[frame_name].text.config(state='normal')
-        self.frames[frame_name].text.delete(0,END)
+        self.frames[frame_name].text.delete('0.0',END)
         self.frames[frame_name].text.insert(END,self.details)
         self.frames[frame_name].text.config(state='disabled')
