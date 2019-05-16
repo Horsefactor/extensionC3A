@@ -66,8 +66,8 @@ class App(Tk):
             frame =  F(parent=self.container, controller=self)
             self.frames[F.__name__] = frame
 
-            # Put all of the pages in the same location;
-            # the one on the top of the stacking order
+            # Put all of the pages in the same location.
+            # The one on the top of the stacking order
             # will be the one that is visible.
             frame.grid(row=0, column=0, sticky="nsew")
 

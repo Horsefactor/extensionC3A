@@ -106,7 +106,7 @@ def itemNotInTab(tab, name):
     for j in range(len(tab)):
 
         if tab[j][index_revit_name] == name:
-            return False
+            return False 
             
     return True
 

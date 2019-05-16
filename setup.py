@@ -9,7 +9,7 @@ import sys
 
 base = None
 
-#to hide the terminal
+#To hide the terminal
 if sys.platform == 'win32':
     base = 'Win32GUI'
 
@@ -17,7 +17,7 @@ PYTHON_INSTALL_DIR = os.path.dirname(os.path.dirname(os.__file__))
 os.environ['TCL_LIBRARY'] = os.path.join(PYTHON_INSTALL_DIR, 'tcl', 'tcl8.6')
 os.environ['TK_LIBRARY'] = os.path.join(PYTHON_INSTALL_DIR, 'tcl', 'tk8.6')
 
-#include files
+#Include files
 options = {
     'build_exe': {
         'include_files':[
@@ -27,11 +27,11 @@ options = {
             'image/logoELLyps.png',
             'config/config.txt'
          ],
-        "include_msvcr" :True,
+        'include_msvcr' :True,
     },
 }
 
-#setup of the executable
+#Setup of the executable
 setup(
     options = options,
     name = 'TraductionCC',

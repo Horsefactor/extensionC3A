@@ -37,6 +37,8 @@ except Exception as e :
     error += "{} : {}\r\n".format(e.__doc__, e)
     problem = 1
 
+#Put at the end of the program information about modif, 
+#who is the user, last change, error, in the details file.
 finally :
     now = datetime.today()
     userInfo = '''Date de dernière modification:\t\tLe {}/{}/{}
